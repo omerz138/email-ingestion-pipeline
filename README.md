@@ -9,7 +9,8 @@ files, and the dedup index.
 The full design (architecture, unique-id choice, CDC strategy, edge-case
 decisions, and production scaling) is in [docs/DESIGN.md](docs/DESIGN.md)
 (also available as a [Notion document](https://app.notion.com/p/372f6b6e9b588019ae4ed5e63a8727b6?source=copy_link)).
-AI-process notes are in [docs/AI_PROCESS.md](docs/AI_PROCESS.md).
+Planning notes are in [docs/PLANNING.md](docs/PLANNING.md) and AI-process notes
+are in [docs/AI_PROCESS.md](docs/AI_PROCESS.md).
 
 ## Setup
 
