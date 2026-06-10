@@ -116,8 +116,19 @@ def build_bucket(root: str, namespace: str = NAMESPACE) -> str:
     _write(root, namespace, P3, "deep_chain.zip", make_zip({"mid.zip": mid}))
 
     # --- Edge case 3: identical inner names, different content -> distinct --
+    # ZIP variant: two archives both containing "001.eml" with different bytes.
     _write(root, namespace, P3, "collide_a.zip", make_zip({"001.eml": make_eml("Collide A", "alpha")}))
     _write(root, namespace, P3, "collide_b.zip", make_zip({"001.eml": make_eml("Collide B", "beta")}))
+    # MBOX variant (matches the assignment wording): two different MBOXes whose
+    # messages share the same per-mbox index (#0, #1) but differ in content.
+    _write(root, namespace, P3, "mailbox_x.mbox", make_mbox([
+        make_eml("X-001", "mailbox x, first message"),
+        make_eml("X-002", "mailbox x, second message"),
+    ]))
+    _write(root, namespace, P3, "mailbox_y.mbox", make_mbox([
+        make_eml("Y-001", "mailbox y, first message"),
+        make_eml("Y-002", "mailbox y, second message"),
+    ]))
 
     # --- Identical content from two sources -> collapse to one email -------
     _write(root, namespace, P3, "dup_a.zip", make_zip({"x.eml": make_eml("Same", SAME_BODY)}))
@@ -147,5 +158,6 @@ def build_bucket(root: str, namespace: str = NAMESPACE) -> str:
 #   nested.zip -> deep1, deep2                                            = 2
 #   deep_chain.zip -> chain.mbox -> 2 messages                           = 2
 #   collide_a/collide_b 001.eml (different bytes)                         = 2
+#   mailbox_x/mailbox_y -> 2 messages each (same index, different bytes)  = 4
 #   dup_a/dup_b identical bytes -> collapse                              = 1
-EXPECTED_UNIQUE_EMAILS = 17
+EXPECTED_UNIQUE_EMAILS = 21

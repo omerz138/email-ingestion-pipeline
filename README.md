@@ -72,7 +72,7 @@ A second run in `--mode incremental` reprocesses nothing
 ## Test
 
 ```bash
-python -m pytest            # 16 tests: unit + end-to-end + edge cases + crash-restart
+python -m pytest            # 17 tests: unit + end-to-end + edge cases + crash-restart
 ```
 
 See [Edge cases & tests](#edge-cases--tests) for the edge-case-to-test mapping.
@@ -160,7 +160,7 @@ All ten assignment edge cases have automated coverage
 |---|-----------|----------|------|
 | 1 | Same filename, different partitions | Both kept (different bytes) | `test_same_filename_different_partitions` |
 | 2 | ZIP containing a ZIP | Fully unrolled | `test_deeply_nested_chain` |
-| 3 | Identical inner names, different bytes | Kept distinct | `test_identical_inner_names_kept_distinct` |
+| 3 | Identical inner names, different bytes (ZIP and MBOX) | Kept distinct | `test_identical_inner_names_kept_distinct`, `test_two_mboxes_same_index_kept_distinct` |
 | 4 | Password-protected ZIP | Skip, `encrypted_zip` | `test_skip_reasons_recorded` |
 | 5 | Corrupted ZIP | Skip, `corrupt_zip` | `test_skip_reasons_recorded` |
 | 6 | Non-email files (`.png`, `.xlsx`) | Skip, `non_email` | `test_skip_reasons_recorded` |

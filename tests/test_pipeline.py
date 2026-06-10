@@ -96,6 +96,27 @@ def test_identical_inner_names_kept_distinct(bucket, tmp_path):
     assert len(collide_ids) == 2  # same filename, different bytes -> two emails
 
 
+def test_two_mboxes_same_index_kept_distinct(bucket, tmp_path):
+    out = str(tmp_path / "out")
+    _, manifest_path = _run(bucket, out, mode="backfill")
+    records = _read_manifest(manifest_path)
+    x_ids = {
+        rec["email_id"]
+        for rec in records
+        if any("mailbox_x.mbox#" in c for c in rec["lineage"])
+    }
+    y_ids = {
+        rec["email_id"]
+        for rec in records
+        if any("mailbox_y.mbox#" in c for c in rec["lineage"])
+    }
+    # Two MBOXes both produce messages at index #0/#1; identical position but
+    # different bytes must yield four distinct emails, not collapse by name.
+    assert len(x_ids) == 2
+    assert len(y_ids) == 2
+    assert x_ids.isdisjoint(y_ids)
+
+
 def test_identical_content_collapses_with_multiple_lineages(bucket, tmp_path):
     out = str(tmp_path / "out")
     _, manifest_path = _run(bucket, out, mode="backfill")
