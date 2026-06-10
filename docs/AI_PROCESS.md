@@ -22,7 +22,7 @@ This document describes how AI tools were used while producing the Email File In
 
 ## Artifacts generated
 
-- A planning file capturing the phasing decision and the key engineering decisions (unique id, CDC, lineage, unpacking, output layout) before drafting.
+- [`docs/PLANNING.md`](PLANNING.md) — a planning file capturing the phasing decision and the key engineering decisions (unique id, CDC, lineage, unpacking, output layout) before drafting.
 - `docs/DESIGN.md` — the technical design document.
 - This file, `docs/AI_PROCESS.md`.
 

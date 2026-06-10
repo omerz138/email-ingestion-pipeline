@@ -185,5 +185,5 @@ pipeline/
   __main__.py    # CLI
 tests/           # unit + end-to-end + edge-case + crash-restart tests
 scripts/         # test-data generator
-docs/            # DESIGN.md, AI_PROCESS.md
+docs/            # DESIGN.md, PLANNING.md, AI_PROCESS.md
 ```
