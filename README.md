@@ -60,6 +60,22 @@ Outputs land under `--out`:
 pytest
 ```
 
+## Design Document
+
+The full design lives in [docs/DESIGN.md](docs/DESIGN.md) (and the
+[Notion copy](https://app.notion.com/p/372f6b6e9b588019ae4ed5e63a8727b6?source=copy_link)).
+It covers every item the assignment asks for:
+
+- **Architecture overview + diagram** — [Flow Diagram and Description](docs/DESIGN.md#flow-diagram-and-description).
+- **Unique identifier design and why** — SHA-256 of the leaf email's raw bytes; see [Deduplication](docs/DESIGN.md#deduplication) and [Source identity (CDC)](docs/DESIGN.md#source-identity-cdc) for `content_hash` vs `source_hash`.
+- **CDC strategy (backfill vs incremental)** — [Phase 1](docs/DESIGN.md#phase-1-p0---discovery-cdc-and-staging).
+- **How container unpacking and deduplication interact** — [Phase 2](docs/DESIGN.md#phase-2-p0---recursive-container-unpacking-and-dedup) (dedup is computed on leaf bytes *after* unpacking).
+- **What changes for production scale** — [Production notes](docs/DESIGN.md#production-notes).
+- **Scope decisions** (implemented / deferred / why) — [Scope Decisions](docs/DESIGN.md#scope-decisions).
+- **Edge case decisions** (all 10, behavior + rationale) — [Edge Case Decisions](docs/DESIGN.md#edge-case-decisions).
+
+AI-process notes: [docs/AI_PROCESS.md](docs/AI_PROCESS.md).
+
 ## Layout
 
 ```

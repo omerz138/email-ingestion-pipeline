@@ -135,6 +135,25 @@ Not implemented in the take-home; described in [Production notes](#production-no
 
 ---
 
+## Scope Decisions
+
+What was implemented, what was deferred, and why. The assignment is time-boxed
+(1-3 hours), so the guiding rule was: ship a correct, crash-safe, end-to-end P0
+slice over the full edge-case set, and design (not build) the production concerns.
+
+| Area | Decision | Rationale |
+|------|----------|-----------|
+| Discovery + CDC (backfill/incremental) | **Implemented** | Core requirement; needed for any real run and for crash safety. |
+| Recursive unpacking (ZIP / MBOX, nested) | **Implemented** | Core requirement; covers the nesting edge cases (2, 10). |
+| PST unpacking | **Implemented behind optional `pypff`**; skips with a reason if the lib is absent | Keeps the project runnable on the stdlib alone while supporting PST when available. |
+| Content-hash dedup + lineage | **Implemented** | Core requirement; the unique-id and traceability deliverables. |
+| SQLite as source of truth (sources/emails/lineage/skipped) | **Implemented** | Durable, transactional state gives crash safety with no extra infra. |
+| All 10 edge cases | **Implemented + tested** | Behavior chosen per the Edge Case Decisions table; covered by the test suite. |
+| Attachments | **Deferred (P1)** — emails are staged **intact**, so embedded attachments are preserved inside the email file | Separate extraction/indexing is a larger feature; keeping emails intact satisfies P0 without losing data. |
+| Parallelism, object store + Postgres, streaming extraction, dead-letter queue | **Deferred (P1, design only)** | Production-scale concerns; described in Production notes rather than built within the time box. |
+
+---
+
 ## API / Interface Design
 
 This is a batch pipeline, so the interface is a CLI plus on-disk schemas.
