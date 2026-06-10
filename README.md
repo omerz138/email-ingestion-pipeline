@@ -1,1 +1,0 @@
-# email-ingestion-pipeline
