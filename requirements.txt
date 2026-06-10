@@ -1,0 +1,8 @@
+# Runtime: the pipeline uses only the Python standard library.
+#
+# Optional: PST container support. If libpff/pypff is not installed, PST files
+# are skipped and recorded with reason "pst_unsupported" (see docs/DESIGN.md).
+# libpff-python
+
+# Development / tests:
+pytest>=8.0
